@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="bn" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Sphere Ecosystem</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+
+        body {
+            background-color: #0f172a;
+            color: #e2e8f0;
+            font-family: 'Outfit', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .blob { position: absolute; filter: blur(80px); opacity: 0.4; animation: float 10s infinite alternate; z-index: -1; }
+        .blob-1 { top: 10%; left: 10%; width: 300px; height: 300px; background: #4f46e5; }
+        .blob-2 { bottom: 20%; right: 10%; width: 400px; height: 400px; background: #db2777; }
+        @keyframes float { 0% { transform: translate(0, 0); } 100% { transform: translate(20px, 40px); } }
+
+        /* Glassmorphism */
+        .glass-nav { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; transition: 0.4s;
+        }
+        .glass-card:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.06); box-shadow: 0 15px 40px rgba(0,0,0,0.4); }
+
+        .input-dark { background: rgba(0,0,0,0.3); border: 1px solid #334155; color: white; outline: none; transition: 0.3s; }
+        .input-dark:focus { border-color: #3b82f6; box-shadow: 0 0 10px rgba(59, 130, 246, 0.3); }
+
+        .blur-pass { filter: blur(6px); cursor: pointer; }
+        .no-blur { filter: blur(0); }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div id="loginOverlay" class="fixed inset-0 z-[100] bg-slate-900/95 backdrop-blur-md flex justify-center items-center">
+        <div class="glass-card p-8 w-full max-w-md text-center border border-blue-500/30 shadow-2xl shadow-blue-900/20">
+            <div class="mb-6 flex justify-center items-center gap-4">
+                <i class="fas fa-shield-alt text-4xl text-blue-400"></i>
+            </div>
+            <h2 class="text-2xl font-bold text-white mb-2">Restricted Access</h2>
+            <p class="text-gray-400 text-sm mb-6"> login to School Sphere Ecosystem.</p>
+            
+            <form id="loginForm" class="space-y-4">
+                <input type="email" id="uEmail" placeholder="Email Address" class="input-dark w-full p-3 rounded-lg" required>
+                <input type="password" id="uPass" placeholder="Password" class="input-dark w-full p-3 rounded-lg" required>
+                <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold py-3 rounded-lg transition transform active:scale-95">
+                    Login to Portal
+                </button>
+            </form>
+            <p id="loginMsg" class="text-red-400 mt-4 text-sm hidden animate-pulse"></p>
+        </div>
+    </div>
+
+    <div id="mainContent" class="hidden">
+        
+        <div class="fixed inset-0 overflow-hidden pointer-events-none">
+            <div class="blob blob-1 rounded-full"></div>
+            <div class="blob blob-2 rounded-full"></div>
+        </div>
+
+        <nav class="fixed top-0 w-full z-50 glass-nav">
+            <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+                <div class="font-bold text-xl tracking-wider text-white">
+                    School<span class="text-blue-400">Sphere Ecosystem</span>
+                </div>
+                <div class="hidden md:flex gap-8 text-sm font-semibold uppercase tracking-wide text-gray-300">
+                    <a href="#home" class="hover:text-white transition">Home</a>
+                    <a href="#notices" class="hover:text-cyan-400 transition">Notices</a>
+                    <a href="#team" class="hover:text-yellow-400 transition">Team</a>
+                    <a href="#resources" class="hover:text-blue-400 transition"> Ecosystem</a>
+                    <button onclick="doLogout()" class="text-red-400 hover:text-red-300 ml-4 border border-red-500/30 px-3 py-1 rounded">Logout</button>
+                </div>
+            </div>
+        </nav>
+
+        <section id="home" class="pt-32 pb-20 px-4 text-center">
+            
+            <div class="flex justify-center items-center gap-6 md:gap-10 mb-10 animate-[fadeIn_1s_ease-out]">
+                
+                <div class="bg-white/10 p-4 rounded-3xl backdrop-blur-md border border-white/10 hover:border-white/30 transition shadow-2xl hover:scale-105 duration-300">
+                    <img src="https://i.postimg.cc/7YXcSyhb/Brown-Neutral-Minimal-Script-Logo.png" alt="School Sphere Logo" class="h-20 md:h-28 w-auto object-contain drop-shadow-lg">
+                </div>
+                
+                <div class="text-6xl md:text-7xl font-thin text-blue-200/50 mx-2 animate-pulse flex items-center justify-center">
+                    &alpha;
+                </div> 
+                
+                <div class="bg-white/10 p-4 rounded-3xl backdrop-blur-md border border-white/10 hover:border-white/30 transition shadow-2xl hover:scale-105 duration-300">
+                    <img src="https://i.postimg.cc/GmCF3Bd9/photo-2025-12-09-18-22-01.jpg" alt="NexDiv Logo" class="h-20 md:h-28 w-auto object-contain drop-shadow-lg rounded-xl">
+                </div>
+            </div>
+
+            <h1 id="heroTitle" class="text-5xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 mb-6 drop-shadow-2xl">
+                School Sphere Ecosystem
+            </h1>
+            <p id="aboutText" class="text-gray-300 text-lg max-w-3xl mx-auto mb-8 leading-relaxed">
+                Loading system information...
+            </p>
+            
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-widest">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> System Operational
+            </div>
+        </section>
+
+        <section id="notices" class="container mx-auto px-4 mb-20">
+            <div class="flex items-center gap-3 mb-8 border-b border-gray-700 pb-4">
+                <i class="fas fa-bullhorn text-cyan-400 text-xl"></i>
+                <h2 class="text-2xl font-bold text-cyan-100">Notice Board</h2>
+            </div>
+            <div id="noticeGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="text-gray-500 italic">Syncing notices...</div>
+            </div>
+        </section>
+
+        <section id="team" class="container mx-auto px-4 mb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-white mb-2">Leadership & Team</h2>
+                <div class="w-24 h-1 bg-yellow-500 mx-auto rounded-full"></div>
+            </div>
+            <div id="leaderContainer" class="flex flex-wrap justify-center gap-6 mb-10"></div>
+            <div id="memberGrid" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+        </section>
+
+        <section id="resources" class="container mx-auto px-4 pb-24">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-2xl font-bold text-blue-200 border-l-4 border-blue-500 pl-3">Digital Resources</h2>
+                <span class="text-xs bg-blue-900/50 text-blue-300 px-3 py-1 rounded-full border border-blue-500/30">Verified Access</span>
+            </div>
+            <div id="resourceGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="col-span-full text-center text-gray-500">Loading resources...</div>
+            </div>
+        </section>
+
+        <footer class="border-t border-gray-800 bg-black/40 pt-10 pb-6 text-center backdrop-blur-md">
+            <p id="contactInfo" class="text-gray-400 mb-4 font-mono text-sm">info@schoolsphere.com</p>
+            <p class="text-gray-600 text-xs">Developed & Powered by <span class="text-indigo-400 font-bold">Nafiz Iqbal</span></p>
+        </footer>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, onSnapshot, query, orderBy, doc, getDoc, getDocs, where } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        //enter your api//
+      
+      const firebaseConfig = {
+            apiKey: "",
+            authDomain: ",
+            databaseURL: "h
+            projectId: "s
+            storageBucket: "",
+            messagingSenderId: "",
+            appId: ",
+            measurementId: 
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // --- 🔐 LOGIN LOGIC (FIXED) ---
+        
+        function checkSession() {
+            if(localStorage.getItem('isUserLoggedIn') === 'true') {
+                // FORCE HIDE LOGIN, SHOW MAIN
+                document.getElementById('loginOverlay').classList.remove('flex'); // Remove flex layout
+                document.getElementById('loginOverlay').classList.add('hidden'); // Add hidden
+                
+                document.getElementById('mainContent').classList.remove('hidden');
+            }
+        }
+        
+        // Run immediately on load
+        checkSession();
+
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('uEmail').value.trim();
+            const pass = document.getElementById('uPass').value.trim();
+            const msg = document.getElementById('loginMsg');
+            
+            msg.classList.remove('hidden');
+            msg.innerText = "Verifying credentials...";
+            msg.className = "text-yellow-400 mt-4 text-sm animate-pulse";
+
+            try {
+                // Query the 'users' collection (Managed by Admin)
+                const q = query(collection(db, "users"), where("email", "==", email), where("pass", "==", pass));
+                const snap = await getDocs(q);
+
+                if (!snap.empty) {
+                    // Success
+                    localStorage.setItem('isUserLoggedIn', 'true');
+                    checkSession(); // Re-run hide logic
+                    msg.classList.add('hidden');
+                } else {
+                    // Fail
+                    msg.innerText = "Invalid Email or Password!";
+                    msg.className = "text-red-400 mt-4 text-sm font-bold";
+                }
+            } catch (error) {
+                console.error(error);
+                msg.innerText = "Connection Error! Check Internet.";
+            }
+        });
+
+        window.doLogout = () => {
+            localStorage.removeItem('isUserLoggedIn');
+            location.reload();
+        };
+
+        // --- 📡 DATA LOADING (Same as before) ---
+
+        // 1. Site Content
+        onSnapshot(doc(db, "site_content", "general_info"), (docSnap) => {
+            if (docSnap.exists()) {
+                const data = docSnap.data();
+                if(data.title) document.getElementById('heroTitle').innerText = data.title;
+                if(data.about) document.getElementById('aboutText').innerText = data.about;
+                if(data.contact) document.getElementById('contactInfo').innerText = data.contact;
+            }
+        });
+
+        // 2. Notices
+        onSnapshot(query(collection(db, "notices"), orderBy("timestamp", "desc")), (snap) => {
+            const grid = document.getElementById('noticeGrid');
+            grid.innerHTML = '';
+            if(snap.empty) {
+                grid.innerHTML = '<p class="text-gray-500">No active notices.</p>';
+                return;
+            }
+            snap.forEach(d => {
+                const data = d.data();
+                grid.innerHTML += `
+                    <div class="glass-card p-5 border-l-4 border-cyan-500 hover:bg-white/5">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-bold text-cyan-400 bg-cyan-900/20 px-2 py-1 rounded border border-cyan-500/20">${data.date}</span>
+                            <i class="fas fa-bell text-cyan-500/50"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">${data.title}</h3>
+                        <p class="text-gray-400 text-sm">${data.desc}</p>
+                    </div>
+                `;
+            });
+        });
+
+        // 3. Team
+        onSnapshot(query(collection(db, "team"), orderBy("createdAt", "asc")), (snap) => {
+            const lCont = document.getElementById('leaderContainer');
+            const mGrid = document.getElementById('memberGrid');
+            lCont.innerHTML = ''; mGrid.innerHTML = '';
+
+            snap.forEach(d => {
+                const m = d.data();
+                const isLeader = m.role.toLowerCase().includes('leader') || m.color === 'yellow';
+                
+                let themeClass = 'border-slate-600 bg-slate-800/50';
+                if(m.color === 'yellow') themeClass = 'border-yellow-500/50 bg-yellow-900/20';
+                if(m.color === 'blue') themeClass = 'border-blue-500/50 bg-blue-900/20';
+                if(m.color === 'pink') themeClass = 'border-pink-500/50 bg-pink-900/20';
+
+                const imgHtml = m.img.startsWith('http') 
+                    ? `<img src="${m.img}" class="w-full h-full object-cover">` 
+                    : `<span class="text-4xl">${m.img}</span>`;
+
+                const html = `
+                    <div class="glass-card p-6 text-center border ${themeClass} relative group ${isLeader ? 'min-w-[250px] transform hover:scale-105' : ''}">
+                        <div class="w-20 h-20 mx-auto rounded-full overflow-hidden bg-black/20 mb-3 flex items-center justify-center shadow-lg border border-white/10">
+                            ${imgHtml}
+                        </div>
+                        <h3 class="text-lg font-bold text-white">${m.name}</h3>
+                        <p class="text-xs uppercase tracking-widest text-gray-400 font-bold mt-1">${m.role}</p>
+                        ${isLeader ? '<div class="absolute top-2 right-2 text-yellow-400"><i class="fas fa-crown"></i></div>' : ''}
+                    </div>
+                `;
+
+                if(isLeader) lCont.innerHTML += html;
+                else mGrid.innerHTML += html;
+            });
+        });
+
+        // 4. Resources
+        onSnapshot(query(collection(db, "resources"), orderBy("createdAt", "desc")), (snap) => {
+            const grid = document.getElementById('resourceGrid');
+            grid.innerHTML = '';
+            snap.forEach(d => {
+                const r = d.data();
+                const uid = d.id;
+                grid.innerHTML += `
+                    <div class="glass-card p-5 flex flex-col h-full hover:border-blue-400/50">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-lg bg-blue-600/20 flex items-center justify-center text-blue-400">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <div class="overflow-hidden">
+                                <h3 class="font-bold text-gray-100 truncate">${r.name}</h3>
+                                <a href="${r.url}" target="_blank" class="text-xs text-blue-400 hover:underline truncate block">${new URL(r.url).hostname}</a>
+                            </div>
+                        </div>
+                        <div class="bg-black/40 rounded p-3 mb-4 space-y-2 border border-white/5 flex-grow">
+                            <div class="flex justify-between text-xs">
+                                <span class="text-gray-500 font-bold">ID</span>
+                                <div class="flex gap-2">
+                                    <span id="u-${uid}" class="font-mono text-gray-300">${r.user || 'N/A'}</span>
+                                    <i onclick="copy('u-${uid}')" class="far fa-copy cursor-pointer hover:text-white"></i>
+                                </div>
+                            </div>
+                            <div class="flex justify-between text-xs border-t border-white/10 pt-2">
+                                <span class="text-gray-500 font-bold">PASS</span>
+                                <div class="flex gap-2 items-center">
+                                    <span id="p-${uid}" class="font-mono text-gray-300 blur-pass" onclick="toggle('${uid}')">${r.pass || '***'}</span>
+                                    <i onclick="toggle('${uid}')" class="far fa-eye cursor-pointer hover:text-yellow-400"></i>
+                                    <i onclick="copy('p-${uid}')" class="far fa-copy cursor-pointer hover:text-white"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="${r.url}" target="_blank" class="btn w-full bg-blue-600 hover:bg-blue-500 text-white py-2 rounded text-center text-sm font-bold transition">Launch</a>
+                    </div>
+                `;
+            });
+        });
+
+        window.toggle = (id) => {
+            const el = document.getElementById(`p-${id}`);
+            el.classList.toggle('blur-pass');
+            el.classList.toggle('no-blur');
+        };
+        window.copy = (id) => {
+            navigator.clipboard.writeText(document.getElementById(id).innerText);
+            alert("Copied to clipboard!");
+        };
+
+    </script>
+</body>
+</html>
